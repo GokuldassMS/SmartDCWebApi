@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "0HmQvJ4isbo3K660KM/qJJ9jW6t6cO5iksJPeg+W30i4Njxk/ibnvZQPSrbxQH8IGwtUnDlBV760efecJ29ZKw==",
+  "dgSpecHash": "CGMwUY5vxW40DUGdg35zAXSO1Aq3b7Mp7RygqKuJPPHSKWN8EnDTqGsMT/p3TDz4LC9RqeL1cWXA/B2qOtrsig==",
   "success": true,
-  "projectFilePath": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWepApiOld\\SmartDCWebApi\\SmartDCWebApi.csproj",
+  "projectFilePath": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWebApi\\SmartDCWebApi\\SmartDCWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Gokuladass\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Gokuladass\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",

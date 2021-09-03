@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWepApiOld\\SmartDCWebApi\\SmartDCWebApi.csproj": {}
+    "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWebApi\\SmartDCWebApi\\SmartDCWebApi.csproj": {}
   },
   "projects": {
-    "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWepApiOld\\SmartDCWebApi\\SmartDCWebApi.csproj": {
+    "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWebApi\\SmartDCWebApi\\SmartDCWebApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWepApiOld\\SmartDCWebApi\\SmartDCWebApi.csproj",
+        "projectUniqueName": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWebApi\\SmartDCWebApi\\SmartDCWebApi.csproj",
         "projectName": "SmartDCWebApi",
-        "projectPath": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWepApiOld\\SmartDCWebApi\\SmartDCWebApi.csproj",
+        "projectPath": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWebApi\\SmartDCWebApi\\SmartDCWebApi.csproj",
         "packagesPath": "C:\\Users\\Gokuladass\\.nuget\\packages\\",
-        "outputPath": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWepApiOld\\SmartDCWebApi\\obj\\",
+        "outputPath": "D:\\Gokuldass\\MyWorkArea\\WebApi\\SmartDCWebApi\\SmartDCWebApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
