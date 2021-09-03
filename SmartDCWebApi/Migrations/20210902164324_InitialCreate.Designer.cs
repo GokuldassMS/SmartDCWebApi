@@ -9,7 +9,7 @@ using SmartDCWebApi.Models;
 namespace SmartDCWebApi.Migrations
 {
     [DbContext(typeof(SmartDCContext))]
-    [Migration("20210902150946_InitialCreate")]
+    [Migration("20210902164324_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
