@@ -15,6 +15,16 @@ namespace SmartDCWebApi.Controllers
     {
         private readonly SmartDCContext _context;
 
+        public class ParamQuery
+        {
+            public int? pageIndex { get; set; }
+            public int? pageSize { get; set; }
+            public string sortField { get; set; }
+            public string sortOrder { get; set; }
+            public string[] status { get; set; }
+
+        }
+
         public PurchaseDetailController(SmartDCContext context)
         {
             _context = context;
@@ -25,6 +35,95 @@ namespace SmartDCWebApi.Controllers
         public async Task<ActionResult<IEnumerable<PurchaseDetail>>> GetPurchaseDetails()
         {
             return await _context.PurchaseDetails.ToListAsync();
+        }
+
+        [HttpGet]
+        [Route("GetPurchaseDetailsByFilter")]
+        public IEnumerable<PurchaseDetails> GetPurchaseDetailsByFilter([FromQuery] ParamQuery query)
+        {
+            return this.GetPurchaseDetails(query);
+
+        }
+
+        [HttpGet]
+        [Route("GetPurchaseDetailsCount")]
+        public int GetPurchaseDetailsCount()
+        {
+            var count = this.FindAll().ToList().Count;
+            return count;
+        }
+
+        private IEnumerable<PurchaseDetails> GetPurchaseDetails(ParamQuery purchaseDetailsParameters)
+        {
+            int pageIndex = Convert.ToInt32(purchaseDetailsParameters.pageIndex);
+            int pageSize = Convert.ToInt32(purchaseDetailsParameters.pageSize);
+            var sortField = purchaseDetailsParameters.sortField;
+            var sortOrder = purchaseDetailsParameters.sortOrder;
+            string sortFieldOrder = "";
+            sortFieldOrder = sortField + "_" + "asc";
+
+
+
+            if (sortOrder == "descend")
+            {
+                sortFieldOrder = sortField + "_" + "desc";
+            }
+
+            var cust = this.FindAll()
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize);
+
+     
+
+            switch (sortFieldOrder)
+            {
+
+                case "customerName_desc":
+                    cust = cust.OrderByDescending(s => s.CustomerName);
+                    break;
+                case "purchaseDate_asc":
+                    cust = cust.OrderBy(s => s.PurchaseDate);
+                    break;
+                case "purchaseDate_desc":
+                    cust = cust.OrderByDescending(s => s.PurchaseDate);
+                    break;
+                case "dcNo_asc":
+                    cust = cust.OrderBy(s => s.DcNo);
+                    break;
+                case "dcNo_desc":
+                    cust = cust.OrderByDescending(s => s.DcNo);
+                    break;
+                case "vehicleNo_asc":
+                    cust = cust.OrderBy(s => s.VehicleNo);
+                    break;
+                case "vehicleNo_desc":
+                    cust = cust.OrderByDescending(s => s.VehicleNo);
+                    break;
+                default:
+                    cust = cust.OrderBy(s => s.CustomerName);
+                    break;
+            }
+            return cust.ToList();
+
+        }
+
+        private IEnumerable<PurchaseDetails> FindAll()
+        {
+            //return this._context.Set<PurchaseDetail>();
+
+            return (from p in _context.PurchaseDetails
+                    from c in _context.Customers
+                    where c.CustomerId == p.CustomerId
+                    select new PurchaseDetails
+                    {
+                        PurchaseId = p.PurchaseId,
+                        CustomerName = c.CustomerName,
+                        CustomerId = p.CustomerId,
+                        PurchaseDate = p.PurchaseDate,
+                        DcNo = p.DcNo,
+                        VehicleNo = p.VehicleNo,
+                        StyleNo = p.StyleNo
+                    }).ToList();
         }
 
         // GET: api/PurchaseDetail/5
