@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SmartDCWebApi.Models;
+using System.Globalization;
 
 namespace SmartDCWebApi.Controllers
 {
@@ -22,6 +23,10 @@ namespace SmartDCWebApi.Controllers
             public string sortField { get; set; }
             public string sortOrder { get; set; }
             public string[] status { get; set; }
+            public string dcNo { get; set; }
+            public int? companyId { get; set; }
+            public int? customerId { get; set; }
+            public string purchaseDate { get; set; }
 
         }
 
@@ -122,9 +127,16 @@ namespace SmartDCWebApi.Controllers
                         PurchaseDate = p.PurchaseDate,
                         DcNo = p.DcNo,
                         VehicleNo = p.VehicleNo,
-                        StyleNo = p.StyleNo
+                        StyleNo = p.StyleNo,
+                        CompanyId = p.CompanyId,
+                        CreatedBy = p.CreatedBy,
+                        CreatedOn = p.CreatedOn,
+                        ModifiedBy = p.ModifiedBy,
+                        ModifiedOn = p.ModifiedOn
+
                     }).ToList();
         }
+
 
         // GET: api/PurchaseDetail/5
         [HttpGet("{id}")]
@@ -202,5 +214,47 @@ namespace SmartDCWebApi.Controllers
         {
             return _context.PurchaseDetails.Any(e => e.PurchaseId == id);
         }
+
+        [HttpGet]
+        [Route("GetPurchaseDetailsBySearch")]
+        public IEnumerable<PurchaseDetails> GetPurchaseDetailsBySearch([FromQuery] ParamQuery query)
+        {
+            //return this.GetPurchaseDetails(query);
+
+            int pageIndex = Convert.ToInt32(query.pageIndex);
+            int pageSize = Convert.ToInt32(query.pageSize);
+            int companyId = Convert.ToInt32(query.companyId);
+            int customerId = Convert.ToInt32(query.customerId);
+            //string purchaseDate = Convert.ToString(query.purchaseDate);
+            string dcNo = Convert.ToString(query.dcNo);
+            DateTime purchaseDate = Convert.ToDateTime(query.purchaseDate);
+            //DateTime purchaseDate = DateTime.ParseExact(query.purchaseDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+            var cust = this.FindAll()
+                    .Skip((pageIndex - 1) * pageSize)
+                    .Take(pageSize);
+
+            if (companyId != 0)
+            {
+                cust = cust.Where(p => query.companyId == p.CompanyId);
+            }
+            if (customerId != 0)
+            {
+                cust = cust.Where(p => query.customerId == p.CustomerId);
+            }
+            if (dcNo != null && dcNo != "null" && dcNo != "undefined")
+            {
+                cust = cust.Where(p => p.DcNo.ToUpper().Contains(dcNo.ToUpper()));
+            }
+            if (purchaseDate !=null)
+            {
+                cust = cust.Where(p => DateTime.Compare(p.PurchaseDate, purchaseDate) >= 0);
+            }
+
+            cust = cust.OrderBy(s => s.CustomerName);
+            return cust.ToList();
+
+        }
+
     }
 }
