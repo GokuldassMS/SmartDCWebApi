@@ -114,8 +114,7 @@ namespace SmartDCWebApi.Controllers
 
         private IEnumerable<PurchaseDetails> FindAll()
         {
-            //return this._context.Set<PurchaseDetail>();
-
+           
             return (from p in _context.PurchaseDetails
                     from c in _context.Customers
                     where c.CustomerId == p.CustomerId
@@ -132,11 +131,11 @@ namespace SmartDCWebApi.Controllers
                         CreatedBy = p.CreatedBy,
                         CreatedOn = p.CreatedOn,
                         ModifiedBy = p.ModifiedBy,
-                        ModifiedOn = p.ModifiedOn
-
+                        ModifiedOn = p.ModifiedOn,
+                        PurchaseDetailParticulars = _context.PurchaseDetailParticulars.Where(e => e.PurchaseId == p.PurchaseId).ToList()
                     }).ToList();
-        }
 
+        }
 
         // GET: api/PurchaseDetail/5
         [HttpGet("{id}")]

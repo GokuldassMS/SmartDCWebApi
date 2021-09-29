@@ -128,11 +128,9 @@ namespace SmartDCWebApi.Controllers
             //return this._context.Set<PurchaseDetail>();
 
             return (from d in _context.DeliveryDetails
-                    from dp in _context.DeliveryDetailParticulars
                     from p in _context.PurchaseDetails
                     from c in _context.Customers
-                    where dp.DeliveryId == d.DeliveryId
-                    && d.PurchaseId == p.PurchaseId
+                    where d.PurchaseId == p.PurchaseId
                     && c.CustomerId == p.CustomerId
                     select new DeliveryDetails
                     {
@@ -144,7 +142,7 @@ namespace SmartDCWebApi.Controllers
                         ChallanNo = d.ChallanNo,
                         PartyDcNo = d.PartyDcNo,
                         VehicleNo = d.VehicleNo,
-                        Status = dp.Status,
+                        Status = "Delivered",
                         CompanyId = p.CompanyId,
                         CreatedBy = p.CreatedBy,
                         CreatedOn = p.CreatedOn,
